@@ -10,25 +10,25 @@ ad.get("/", async (req, res) => {
   let { sort } = req.query;
   // console.log(page);
   if (!page) page = 0;
-  if (!limit) limit = 0;
+  if (!limit) limit = 4;
   if (!filter) limit = 0;
 
-  // console.log(page, limit,page*limit);
+  // console.log("page",page,"limit", limit, page * limit);
   // res.send("ok");
   try {
     let data;
     if (filter && sort) {
       data = await AdModel.find()
         .skip(limit * page - limit)
-        .limit(4);
+        .limit(limit);
     } else if (filter) {
       data = await AdModel.find({ category: filter })
         .skip(limit * page - limit)
-        .limit(4);
+        .limit(limit);
     } else {
       data = await AdModel.find()
         .skip(limit * page - limit)
-        .limit(4);
+        .limit(limit);
     }
     // console.log(data);
     res.status(200).send(data);
