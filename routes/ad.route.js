@@ -8,6 +8,8 @@ ad.get("/", async (req, res) => {
   let { limit } = req.query;
   let { filter } = req.query;
   let { sort } = req.query;
+  let skip = limit * page - limit;
+  if (skip < 0) skip = 0;
   // console.log(page);
   if (!page) page = 0;
   if (!limit) limit = 4;
