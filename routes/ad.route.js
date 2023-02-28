@@ -6,8 +6,8 @@ const ad = Router();
 ad.get("/", async (req, res) => {
   try {
     let data = await AdModel.find();
-    console.log(data);
-    res.send("ads");
+    // console.log(data);
+    res.status(200).send(data);
   } catch (err) {
     console.log(err);
     res.send("somthing went wrong");
