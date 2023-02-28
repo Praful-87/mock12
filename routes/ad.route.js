@@ -6,14 +6,30 @@ const ad = Router();
 ad.get("/", async (req, res) => {
   let { page } = req.query;
   let { limit } = req.query;
+  let { filter } = req.query;
+  let { sort } = req.query;
   // console.log(page);
   if (!page) page = 0;
   if (!limit) limit = 0;
+  if (!filter) limit = 0;
 
   // console.log(page, limit,page*limit);
   // res.send("ok");
   try {
-    let data = await AdModel.find().skip((limit*page)-limit).limit(4);
+    let data;
+    if (filter && sort) {
+      data = await AdModel.find()
+        .skip(limit * page - limit)
+        .limit(4);
+    } else if (filter) {
+      data = await AdModel.find({ category: filter })
+        .skip(limit * page - limit)
+        .limit(4);
+    } else {
+      data = await AdModel.find()
+        .skip(limit * page - limit)
+        .limit(4);
+    }
     // console.log(data);
     res.status(200).send(data);
   } catch (err) {
