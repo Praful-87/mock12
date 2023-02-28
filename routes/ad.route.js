@@ -10,10 +10,10 @@ ad.get("/", async (req, res) => {
   let { sort } = req.query;
   // console.log(page);
   if (!page) page = 0;
-  if (!limit) limit = 4;
+  if (!limit) limit = 0;
   if (!filter) limit = 0;
 
-  // console.log("page",page,"limit", limit, page * limit);
+  // console.log(page, limit,page*limit);
   // res.send("ok");
   try {
     let data;
